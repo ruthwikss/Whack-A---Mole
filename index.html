@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Whack-a-Mole</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #eaf6ff;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .score {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+
+    .mole-row {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .mole {
+      width: 100px;
+      height: 100px;
+      background-color: gray;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Whack-a-Mole</h1>
+    <div class="score">Score: 0</div>
+    <div class="mole-row">
+      <button class="mole"></button>
+      <button class="mole"></button>
+      <button class="mole"></button>
+    </div>
+  </div>
+</body>
+</html>
