@@ -36,6 +36,7 @@
       display: flex;
       justify-content: center;
       gap: 30px;
+      margin-bottom: 20px;
     }
 
     .mole {
@@ -50,6 +51,20 @@
     .active {
       background-color: green;
     }
+
+    .win-message {
+      font-size: 1.5em;
+      color: green;
+      margin: 20px 0;
+    }
+
+    .restart {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: 1px solid #aaa;
+      background-color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -61,6 +76,61 @@
       <button class="mole"></button>
       <button class="mole"></button>
     </div>
+    <div class="win-message" style="display:none;">🎉 You win! 🎉</div>
+    <button class="restart" style="display:none;">Restart</button>
   </div>
+
+  <script>
+    const moles = document.querySelectorAll('.mole');
+    const scoreDisplay = document.querySelector('.score');
+    const winMessage = document.querySelector('.win-message');
+    const restartBtn = document.querySelector('.restart');
+
+    let score = 0;
+    let activeIndex = -1;
+    let gameInterval;
+    let gameRunning = true;
+
+    function randomMole() {
+      moles.forEach(m => m.classList.remove('active'));
+      activeIndex = Math.floor(Math.random() * moles.length);
+      moles[activeIndex].classList.add('active');
+    }
+
+    function startGame() {
+      score = 0;
+      gameRunning = true;
+      scoreDisplay.textContent = `Score: ${score}`;
+      winMessage.style.display = 'none';
+      restartBtn.style.display = 'none';
+      gameInterval = setInterval(randomMole, 1000);
+    }
+
+    function stopGame() {
+      clearInterval(gameInterval);
+      gameRunning = false;
+      moles.forEach(m => m.classList.remove('active'));
+      winMessage.style.display = 'block';
+      restartBtn.style.display = 'inline-block';
+    }
+
+    moles.forEach((mole, index) => {
+      mole.addEventListener('click', () => {
+        if (!gameRunning) return;
+        if (index === activeIndex) {
+          score++;
+          scoreDisplay.textContent = `Score: ${score}`;
+          moles[activeIndex].classList.remove('active');
+          activeIndex = -1;
+          if (score >= 5) stopGame();
+        }
+      });
+    });
+
+    restartBtn.addEventListener('click', startGame);
+
+    // Start on load
+    startGame();
+  </script>
 </body>
 </html>
